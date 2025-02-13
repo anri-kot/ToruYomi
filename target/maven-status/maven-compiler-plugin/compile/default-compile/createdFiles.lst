@@ -1,3 +1,4 @@
-com/anrikot/ankiconnect/AnkiResponse.class
-com/anrikot/ankiconnect/AnkiConnectService.class
-com/anrikot/AnkiApplication.class
+com/anrikot/services/AnkiResponse.class
+com/anrikot/app/Main.class
+com/anrikot/services/AnkiConnectService.class
+com/anrikot/controllers/PrimaryController.class

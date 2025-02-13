@@ -1,3 +1,4 @@
-/home/kuroneko/dev/Java/AnkiProject/anki-project/src/main/java/com/anrikot/AnkiApplication.java
-/home/kuroneko/dev/Java/AnkiProject/anki-project/src/main/java/com/anrikot/ankiconnect/AnkiResponse.java
-/home/kuroneko/dev/Java/AnkiProject/anki-project/src/main/java/com/anrikot/ankiconnect/AnkiConnectService.java
+/home/kuroneko/dev/Java/AnkiProject/anki-project/src/main/java/com/anrikot/services/AnkiResponse.java
+/home/kuroneko/dev/Java/AnkiProject/anki-project/src/main/java/com/anrikot/app/Main.java
+/home/kuroneko/dev/Java/AnkiProject/anki-project/src/main/java/com/anrikot/controllers/PrimaryController.java
+/home/kuroneko/dev/Java/AnkiProject/anki-project/src/main/java/com/anrikot/services/AnkiConnectService.java
