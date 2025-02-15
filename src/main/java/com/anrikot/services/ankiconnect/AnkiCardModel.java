@@ -1,4 +1,4 @@
-package com.anrikot.services;
+package com.anrikot.services.ankiconnect;
 
 import java.util.List;
 import java.util.Map;

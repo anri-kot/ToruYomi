@@ -1,4 +1,4 @@
-package com.anrikot.services;
+package com.anrikot.services.ankiconnect;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -21,7 +21,7 @@ public class AnkiConnectService {
     private static AnkiResponse sendRequest(String action, Map<String, Object> params) {
         try {
             // Convert request to JSON
-            String requestJson = OBJECT_MAPPER.writeValueAsString(Map.of(
+            String jsonRequest = OBJECT_MAPPER.writeValueAsString(Map.of(
                 "action", action,
                 "params", params,
                 "version", 6
@@ -38,13 +38,13 @@ public class AnkiConnectService {
 
             // Send request
             try (OutputStream os = conn.getOutputStream()) {
-                os.write(requestJson.getBytes());
+                os.write(jsonRequest.getBytes());
             }
 
             // Read response
             int responseCode = conn.getResponseCode();
             if (responseCode != 200) {
-                throw new IOException("HTTP Error: " + responseCode);
+                throw new IOException("Bad response: " + responseCode);
             }
 
             AnkiResponse response = OBJECT_MAPPER.readValue(conn.getInputStream(), AnkiResponse.class);
@@ -71,6 +71,7 @@ public class AnkiConnectService {
     }
 
     public static void createDeck(String deckName) {
+        // Validate deck name
         String current = getDeckNames().toString().toLowerCase();
         if (current.contains(deckName.toLowerCase())) {
             throw new RuntimeException("Deck already exists.");

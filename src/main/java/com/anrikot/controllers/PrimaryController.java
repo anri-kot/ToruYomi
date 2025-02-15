@@ -1,6 +1,6 @@
 package com.anrikot.controllers;
 
-import com.anrikot.services.AnkiConnectService;
+import com.anrikot.services.ankiconnect.AnkiConnectService;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
