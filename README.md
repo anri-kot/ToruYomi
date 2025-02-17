@@ -1,4 +1,4 @@
-# Anki Auto
+# ToruYomi (透読)
 
 A web application that receives kanji input and automatically creates Anki cards with hiragana readings, meanings, and example sentences. Uses dictionary APIs to fetch data and AnkiConnect to insert cards into Anki.  
 

@@ -18,7 +18,7 @@ public class Main extends Application {
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/styles/dark-theme.css").toExternalForm());
 
-        primaryStage.setTitle("Anki Project");
+        primaryStage.setTitle("透読 - ToruYomi");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
