@@ -18,7 +18,7 @@ public class TatoebaService {
     private static final String TATOEBA_URL = "https://tatoeba.org/ja/api_v0/search?from=jpn&query=%s&to=eng"; 
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
-    private static List<Sentence> searchSentences(String query) {
+    public static List<Sentence> searchSentences(String query) {
 
         try {
             String encodedQuery = URLEncoder.encode("\"" + query + "\"", StandardCharsets.UTF_8);

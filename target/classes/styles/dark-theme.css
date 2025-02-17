@@ -1,0 +1,41 @@
+/* Dark Theme for JavaFX */
+.root {
+    -fx-background-color: #1e1e1e;
+}
+
+.label {
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.text-area {
+    -fx-control-inner-background: #333333;
+    -fx-text-fill: white;
+}
+
+.text-field, .text-area {
+    -fx-font-family: "Noto Sans CJK JP", "Yu Gothic", "MS Gothic", "SimSun", "Arial Unicode MS";
+    -fx-font-size: 16px;
+
+    -fx-background-color: #2e2e2e;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: #bbbbbb;
+    -fx-padding: 8px;
+    -fx-background-radius: 5px;
+    -fx-border-color: #444444;
+    -fx-border-radius: 5px;
+}
+
+.button {
+    -fx-background-color: #3a3a3a;
+    -fx-text-fill: white;
+    -fx-background-radius: 5px;
+    -fx-font-weight: bold;
+    -fx-padding: 8px;
+    -fx-border-color: transparent;
+}
+
+.button:hover {
+    -fx-background-color: #555555;
+}

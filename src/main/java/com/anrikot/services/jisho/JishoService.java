@@ -79,7 +79,11 @@ public class JishoService {
                     }
 
                     // !result.has("word") is here because some kanji don't have the 'word' field for some reason, but the reading SHOULD match the query
-                    if (result.get("word").asText().equals(word) || !result.has("word")) {
+                    if (result.has("word")) {
+                        if (result.get("word").asText().equals(word)) {
+                            readings.add(result.get("reading").asText());
+                        }
+                    } else {
                         readings.add(result.get("reading").asText());
                     }
                 }
@@ -115,7 +119,7 @@ public class JishoService {
     }
 
     public static void main(String[] args) {
-        System.out.println(searchWord("相"));
+        System.out.println(searchWord("悪"));
     }
 
 }

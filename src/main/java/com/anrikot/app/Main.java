@@ -1,29 +1,30 @@
 package com.anrikot.app;
 
 import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-    
+
+    // ISSUE: Gluon textfield dependencies
+
     @Override
-    public void start(Stage primaryStage) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/primary.fxml"));
-            Scene scene = new Scene(loader.load());
-            
-            primaryStage.setTitle("Anki Project");
-            primaryStage.setScene(scene);
-            primaryStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void start(Stage primaryStage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("/views/layout.fxml"));
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/styles/dark-theme.css").toExternalForm());
+
+        primaryStage.setTitle("Anki Project");
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
     public static void main(String[] args) {
-        launch(args);
+        launch();
     }
 
 }

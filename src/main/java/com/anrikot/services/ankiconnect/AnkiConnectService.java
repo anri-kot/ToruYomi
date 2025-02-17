@@ -85,6 +85,11 @@ public class AnkiConnectService {
         }
     }
 
+    public static AnkiResponse getModelsByName(String modelName) {
+        AnkiResponse response = sendRequest("findModelsByName", Map.of("modelNames", List.of(modelName)));
+        return response;
+    }
+
     public static void createModel(String modelName, List<String> inOrderFields, List<Object> cardTemplates) {
         Map<String, Object> cardModel = new HashMap<>();
         cardModel.put("modelName", modelName);
@@ -115,4 +120,6 @@ public class AnkiConnectService {
         }
 
     }
+
+
 }

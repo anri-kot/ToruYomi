@@ -1,4 +1,10 @@
-com/anrikot/services/AnkiResponse.class
+com/anrikot/services/ankiconnect/AnkiCardModel.class
+com/anrikot/services/ankiconnect/AnkiResponse$1.class
 com/anrikot/app/Main.class
-com/anrikot/services/AnkiConnectService.class
-com/anrikot/controllers/PrimaryController.class
+com/anrikot/services/tatoeba/TatoebaService.class
+com/anrikot/services/ankiconnect/AnkiConnectService.class
+com/anrikot/services/ankiconnect/AnkiResponse.class
+com/anrikot/services/jisho/JishoService.class
+com/anrikot/services/jisho/JishoWord.class
+com/anrikot/services/ankiconnect/AnkiResponse$2.class
+com/anrikot/services/tatoeba/Sentence.class
