@@ -1,7 +1,5 @@
 package com.anrikot.app;
 
-import java.io.IOException;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,13 +7,11 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-
-    // ISSUE: Gluon textfield dependencies
-
+    
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/views/layout.fxml"));
-        Scene scene = new Scene(root);
+        Parent root = FXMLLoader.load(getClass().getResource("/views/main_fxml.fxml"));
+        Scene scene = new Scene(root, 500, 600);
         scene.getStylesheets().add(getClass().getResource("/styles/dark-theme.css").toExternalForm());
 
         primaryStage.setTitle("透読 - ToruYomi");

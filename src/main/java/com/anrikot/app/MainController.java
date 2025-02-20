@@ -17,7 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
-public class Controller {
+public class MainController {
     JishoWord kanjiDef = null;
     List<Sentence> sentences = null;
 
@@ -40,14 +40,15 @@ public class Controller {
             kanjiDef = JishoService.searchWord(kanji);
             sentences = TatoebaService.searchSentences(kanji);
 
-            outputArea.appendText("Searching for: " + kanji + "\n");
-            outputArea.appendText("Readings: ");
+            outputArea.appendText("Searching for: " + kanji + "\n\n");
+            outputArea.appendText("Readings: \n");
             outputArea.appendText(kanjiDef.getReadings().toString() + "\n");
             outputArea.appendText("Meanings: \n");
-            outputArea.appendText(kanjiDef.getMeanings().toString() + "\n");
+            outputArea.appendText(kanjiDef.getMeanings().toString() + "\n\n");
+            outputArea.appendText("Example sentences:\n");
             for (Sentence sentence : sentences) {
-                outputArea.appendText("Ex: " + sentence.getTranscription() + "\n");
-                outputArea.appendText("Tl: " + sentence.getTranslation() + "\n");
+                outputArea.appendText("EX: " + sentence.getTranscription() + "\n");
+                outputArea.appendText("TL: " + sentence.getTranslation() + "\n");
             }
         }
     }
