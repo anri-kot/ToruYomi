@@ -21,7 +21,6 @@ public class JishoService {
         try {
             String encodedQuery = URLEncoder.encode(query, StandardCharsets.UTF_8);
             String request = String.format(JISHO_URL, encodedQuery);
-            System.out.println(request);
 
             // Open connection
             URI uri = new URI(request);

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<BorderPane minHeight="650.0" minWidth="500.0" stylesheets="@../styles/dark-theme.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.anrikot.controllers.AnkiCardController">
+   <bottom>
+      <HBox alignment="CENTER" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#saveNote" text="Save">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="cancel" mnemonicParsing="false" onAction="#close" text="Cancel">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="5.0" top="5.0" />
+         </BorderPane.margin>
+      </HBox>
+   </bottom>
+   <center>
+      <!-- Make AnchorPane stretch to fill available space -->
+      <AnchorPane BorderPane.alignment="CENTER">
+         <children>
+            <GridPane hgap="5.0" vgap="10.0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+              <columnConstraints>
+                <!-- Ensure both columns can grow -->
+                <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="300.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <!-- Ensure that the TextAreas grow when resizing -->
+                <RowConstraints minHeight="30.0" vgrow="NEVER" />
+                <RowConstraints minHeight="30.0" vgrow="NEVER" />
+                <RowConstraints minHeight="50.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="50.0" vgrow="ALWAYS" />
+              </rowConstraints>
+               <children>
+                  <Label text="Kanji" />
+                  <TextField fx:id="kanjiField" maxWidth="Infinity" prefHeight="12.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />
+                  
+                  <Label text="Readings" GridPane.rowIndex="1" />
+                  <TextField fx:id="readingsField" maxWidth="Infinity" prefHeight="12.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
+                  
+                  <Label text="Meanings" GridPane.rowIndex="2" />
+                  <TextArea fx:id="meaningsField" maxHeight="Infinity" maxWidth="Infinity" prefHeight="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS" />
+                  
+                  <Label text="Examples" GridPane.rowIndex="3" />
+                  <TextArea fx:id="examplesField" maxHeight="Infinity" maxWidth="Infinity" prefHeight="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS" />
+               </children>
+            </GridPane>
+         </children>
+      </AnchorPane>
+   </center>
+   <padding>
+      <Insets left="10.0" right="10.0" top="10.0" />
+   </padding>
+</BorderPane>

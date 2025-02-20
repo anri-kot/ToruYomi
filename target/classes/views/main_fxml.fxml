@@ -3,7 +3,7 @@
 <?import javafx.scene.layout.*?>
 
 <VBox spacing="10" alignment="CENTER" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.anrikot.app.MainController" stylesheets="@../styles/dark-theme.css">
+      fx:controller="com.anrikot.controllers.MainController" stylesheets="@../styles/dark-theme.css">
 
     <Label text="Type the kanji you want to search" fx:id="titleLabel"/>
     <TextField fx:id="searchField" promptText="Enter kanji..."/>
