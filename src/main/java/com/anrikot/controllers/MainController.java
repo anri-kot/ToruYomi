@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.anrikot.services.ankiconnect.AnkiConnectService;
 import com.anrikot.services.jisho.JishoService;
 import com.anrikot.services.jisho.JishoWord;
 import com.anrikot.services.tatoeba.Sentence;
@@ -21,9 +22,11 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class MainController {
+    String kanji = "";
     JishoWord kanjiDef = null;
     List<Sentence> sentences = null;
-    Map<String, String> sentencesMap;
+
+    AnkiCardController ankiCardController;
 
     @FXML
     private Label titleLabel;
@@ -38,9 +41,9 @@ public class MainController {
 
     @FXML
     private void onSearch() {
-        outputArea.setText("");
+        outputArea.setText("Search for a word!");
 
-        String kanji = searchField.getText().trim();
+        kanji = searchField.getText().trim();
         if (!kanji.isEmpty()) {
             kanjiDef = JishoService.searchWord(kanji);
             sentences = TatoebaService.searchSentences(kanji);
@@ -48,17 +51,25 @@ public class MainController {
             StringBuilder textLog = new StringBuilder();
 
             textLog.append("Searching for: " + kanji + "\n\n");
-            textLog.append("Readings: \n");
-            textLog.append(kanjiDef.getReadings().toString() + "\n");
-            textLog.append("Meanings: \n");
-            textLog.append(kanjiDef.getMeanings().toString() + "\n\n");
-            textLog.append("Example sentences:\n");
+            
+            if (kanjiDef != null) {
 
-            sentencesMap = new HashMap<>();
-            for (Sentence sentence : sentences) {
-                textLog.append("EX: " + sentence.getTranscription() + "\n");
-                textLog.append("TL: " + sentence.getTranslation() + "\n");
-                sentencesMap.put("EX: " + sentence.getTranscription(), "TL: " + sentence.getTranslation());
+                textLog.append("Readings: \n");
+                textLog.append(kanjiDef.getReadings().toString() + "\n");
+                textLog.append("Meanings: \n");
+                textLog.append(kanjiDef.getMeanings().toString() + "\n\n");
+            } else {
+                textLog.append("No definition found in Jisho for '" + kanji + "'\n");
+            }
+
+            if (sentences != null) {
+                textLog.append("Example sentences:\n");
+                for (Sentence sentence : sentences) {
+                    textLog.append("EX: " + sentence.getTranscription() + "\n");
+                    textLog.append("TL: " + sentence.getTranslation() + "\n");
+                }
+            } else {
+                textLog.append("No example sentences found in Tatoeba for '" + kanji + "'");
             }
 
             updateTextArea(textLog.toString());
@@ -67,21 +78,32 @@ public class MainController {
 
     @FXML
         private void onAdd() {
-            String kanji = searchField.getText().trim();
+            if (!AnkiConnectService.isActive()) {
+                outputArea.setText("Could not connect to AnkiConnect.");
+            }
+
+            String readings = "";
+            String meanings = "";
+            String examples = "";
     
             if (!kanji.isEmpty()) {
                 StringBuilder sb = new StringBuilder();
-    
-                String readings = kanjiDef.getReadings().toString().replaceAll("(^\\[|\\]$)", "");
-                String meanings = kanjiDef.getMeanings().toString().replaceAll("(^\\[|\\]$)", "");;
                 
-                for (Sentence sentence : sentences) {
-                    sb.append("EX: " + sentence.getTranscription() + "\n");
-                    sb.append("TL: " + sentence.getTranslation() + "\n");
+                readings = kanjiDef.getReadings().toString().replaceAll("(^\\[|\\]$)", "");
+                meanings = kanjiDef.getMeanings().toString().replaceAll("(^\\[|\\]$)", "");;
+                
+                if (sentences != null) {
+                    for (Sentence sentence : sentences) {
+                        sb.append("EX: " + sentence.getTranscription() + "\n");
+                        sb.append("TL: " + sentence.getTranslation() + "\n");
+                    }
+                    
+                    examples = sb.toString();
                 }
     
-                String examples = sb.toString();
-    
+                openAnkiNoteWindow(kanji, readings, meanings, examples);
+            } else {
+                outputArea.setText("Search for a word to automatically fill the note fields!");
                 openAnkiNoteWindow(kanji, readings, meanings, examples);
             }
         }
@@ -95,13 +117,22 @@ public class MainController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ankicardwindow.fxml"));
             Parent root = loader.load();
 
-            AnkiCardController controller = loader.getController();
-            controller.setData(kanji, readings, meanings, examples, this);
+            if (ankiCardController != null) {
+                ankiCardController.setData(kanji, readings, meanings, examples, this);
+            } else {
+                ankiCardController = loader.getController();
+                ankiCardController.setData(kanji, readings, meanings, examples, this);
+    
+                Stage stage = new Stage();
+                stage.setTitle("Add Card");
+                stage.setScene(new Scene(root, 500, 650));
+                stage.setX(1280);
+                stage.show();
 
-            Stage stage = new Stage();
-            stage.setTitle("Add Card");
-            stage.setScene(new Scene(root, 500, 650));
-            stage.show();
+                stage.setOnCloseRequest((event) -> {
+                    ankiCardController = null;
+                });
+            }
         } catch (IOException e) {
             outputArea.setText("Something went wrong: " + e.getMessage());
         }

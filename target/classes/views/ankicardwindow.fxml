@@ -57,10 +57,10 @@
                   <TextField fx:id="readingsField" maxWidth="Infinity" prefHeight="12.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
                   
                   <Label text="Meanings" GridPane.rowIndex="2" />
-                  <TextArea fx:id="meaningsField" maxHeight="Infinity" maxWidth="Infinity" prefHeight="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS" />
+                  <TextArea fx:id="meaningsField" maxHeight="Infinity" maxWidth="Infinity" prefHeight="200.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS" />
                   
                   <Label text="Examples" GridPane.rowIndex="3" />
-                  <TextArea fx:id="examplesField" maxHeight="Infinity" maxWidth="Infinity" prefHeight="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS" />
+                  <TextArea fx:id="examplesField" maxHeight="Infinity" maxWidth="Infinity" prefHeight="200.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS" />
                </children>
             </GridPane>
          </children>

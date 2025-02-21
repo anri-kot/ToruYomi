@@ -45,11 +45,10 @@ public class AnkiCardController {
                     fields, List.of(""));
 
             mainController.updateTextArea("Note created successfully");
+            close(event);
 
         } catch (Exception e) {
             mainController.updateTextArea("Somethings went wrong: " + e.getMessage());
-        } finally {
-            close(event);
         }
 
     }
@@ -57,6 +56,7 @@ public class AnkiCardController {
     @FXML
     private void close(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        mainController.ankiCardController = null;
         stage.close();
     }
 

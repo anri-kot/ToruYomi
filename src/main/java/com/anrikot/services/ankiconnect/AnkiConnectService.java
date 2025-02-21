@@ -6,6 +6,7 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,28 @@ public class AnkiConnectService {
 
     private static final String ANKI_CONNECT_URL = "http://127.0.0.1:8765";
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+
+    public static boolean isActive() {
+        boolean isActive = false;
+        try {
+            URI uri = new URI(ANKI_CONNECT_URL);
+            URL url = uri.toURL();
+
+            // Open connection
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setDoOutput(true);
+
+            if (conn.getResponseCode() != 200) {
+                isActive = true;
+            }
+
+
+        } catch (Exception e) {}
+
+        return isActive;
+
+    }
 
     private static AnkiResponse sendRequest(String action, Map<String, Object> params) {
         try {
@@ -59,6 +82,8 @@ public class AnkiConnectService {
             throw new RuntimeException("Invalid URI/URL: " + e.getMessage(), e);
         }
     }
+
+    // Anki actions
 
     public static List<String> getDeckNames() {
         AnkiResponse response = sendRequest("deckNames", Map.of());
@@ -121,4 +146,32 @@ public class AnkiConnectService {
 
     }
 
+    // Default deck
+    public static void createDefaultDeck() {
+        String deckName = "ToruYomi";
+        String modelName = "ToruYomiModel";
+
+        List<String> fields = new ArrayList<>();
+
+        fields.add("Word");
+        fields.add("Readings");
+        fields.add("Meanings");
+        fields.add("Examples");
+
+        String backHTML = """
+                <div id='readings'>{{Readings}}</div>
+                <hr>
+                <div id='meanings'>{{Meanings}}</div>
+                <details style="text-align:left">
+                <summary> Examples: </summary>
+                {{Examples}}
+                """;
+
+        Map<String, String> cardTemplate = new HashMap<>();
+        cardTemplate.put("Front", "<div id='word'>{{Word}}</id>");
+        cardTemplate.put("Back", backHTML);
+
+        createModel(modelName, fields, List.of(cardTemplate));
+        createDeck(deckName);
+    }
 }
