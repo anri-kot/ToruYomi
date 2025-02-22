@@ -12,13 +12,13 @@ ToruYomi is a Java-based desktop application designed to help Japanese learners 
 - Automatically creates the "ToruYomi" deck and model if they don’t exist.
 
 ## Tech Stack and Tools
-- **Java 21** — Core language for the application backend.
-- **JavaFX 21** — For the desktop graphical user interface.
+- **Java 23** — Core language for the application backend.
+- **JavaFX 23** — For the desktop graphical user interface.
 - **Maven** — Dependency management and project build.
 - **AnkiConnect API** — Integration for sending flashcards to Anki.
 
 ## Requirements
-- **Java 21 Runtime Environment** (if using the JAR version)
+- **Java 23 Runtime Environment** (if using the JAR version)
 - **Anki** with the [AnkiConnect Extension](https://ankiweb.net/shared/info/2055492159) (only required for adding cards)
 
 ## Installation and Usage
@@ -27,7 +27,7 @@ ToruYomi is a Java-based desktop application designed to help Japanese learners 
 - Double-click the `.exe` file to launch ToruYomi — no additional setup required.
 
 ### Using the JAR File
-- Ensure Java 21 or later is installed.
+- Ensure Java 23 or later is installed.
 - Download the `.jar` release.
 - On **Windows**, run the following command from the terminal or create a `.bat` script:
 

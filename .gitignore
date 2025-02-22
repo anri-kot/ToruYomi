@@ -1,5 +1,9 @@
 dependency-reduced-pom.xml
 
+# IDEA
+.idea/
+src/main/resources/META-INF/
+
 # Private
 notes.txt
 
