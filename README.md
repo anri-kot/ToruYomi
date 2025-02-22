@@ -15,7 +15,9 @@ ToruYomi is a Java-based desktop application designed to help Japanese learners 
 - **Java 23** — Core language for the application backend.
 - **JavaFX 23** — For the desktop graphical user interface.
 - **Maven** — Dependency management and project build.
-- **AnkiConnect API** — Integration for sending flashcards to Anki.
+- **[AnkiConnect API](https://foosoft.net/projects/anki-connect)** — Integration for sending flashcards to Anki.
+- **[Jisho API](https://jisho.org/)** - Word search.
+- **[Tatoeba API](https://tatoeba.org/)** - Example sentences.
 
 ## Requirements
 - **Java 23 Runtime Environment** (if using the JAR version)
