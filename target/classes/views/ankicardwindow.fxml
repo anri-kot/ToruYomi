@@ -14,6 +14,7 @@
 
 <BorderPane minHeight="650.0" minWidth="500.0" stylesheets="@../styles/dark-theme.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.anrikot.controllers.AnkiCardController">
    <bottom>
+      <!-- main container -->
       <HBox alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#saveNote" text="Save">

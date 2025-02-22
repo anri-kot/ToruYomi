@@ -1,6 +1,8 @@
 package com.anrikot.services.ankiconnect;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URI;
@@ -10,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,11 +32,10 @@ public class AnkiConnectService {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setDoOutput(true);
+            
+            conn.connect();
 
-            if (conn.getResponseCode() != 200) {
-                isActive = true;
-            }
-
+            isActive = true;
 
         } catch (Exception e) {}
 
@@ -130,6 +132,7 @@ public class AnkiConnectService {
     }
 
     public static void createNote(String deckName, String modelName, Map<String,String> fields, List<String> tags) {
+
         Map<String, Object> note = new HashMap<>();
         note.put("deckName", deckName);
         note.put("modelName", modelName);
@@ -149,7 +152,7 @@ public class AnkiConnectService {
     // Default deck
     public static void createDefaultDeck() {
         String deckName = "ToruYomi";
-        String modelName = "ToruYomiModel";
+        String modelName = "ToruYomi";
 
         List<String> fields = new ArrayList<>();
 
@@ -159,9 +162,12 @@ public class AnkiConnectService {
         fields.add("Examples");
 
         String backHTML = """
+                <div id='word'>{{Word}}</id>
+                <hr>
                 <div id='readings'>{{Readings}}</div>
                 <hr>
                 <div id='meanings'>{{Meanings}}</div>
+                <hr>
                 <details style="text-align:left">
                 <summary> Examples: </summary>
                 {{Examples}}
@@ -171,7 +177,15 @@ public class AnkiConnectService {
         cardTemplate.put("Front", "<div id='word'>{{Word}}</id>");
         cardTemplate.put("Back", backHTML);
 
-        createModel(modelName, fields, List.of(cardTemplate));
-        createDeck(deckName);
+        CompletableFuture.runAsync(() -> 
+            createModel(modelName, fields, List.of(cardTemplate)))
+            .thenRun(() -> createDeck(deckName))
+            .exceptionally(e -> {
+                throw new RuntimeException("Could not create ToruYomi deck: " + e.getMessage());
+            });
+    }
+
+    public static void main(String[] args) {
+        createDefaultDeck();
     }
 }

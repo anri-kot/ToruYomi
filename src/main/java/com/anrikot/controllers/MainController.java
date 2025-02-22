@@ -19,6 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class MainController {
@@ -28,16 +29,12 @@ public class MainController {
 
     AnkiCardController ankiCardController;
 
-    @FXML
-    private Label titleLabel;
-    @FXML
-    private TextField searchField;
-    @FXML
-    private Button searchButton;
-    @FXML
-    private Button addButton;
-    @FXML
-    private TextArea outputArea;
+    @FXML private Label titleLabel;
+    @FXML private TextField searchField;
+    @FXML private Button searchButton;
+    @FXML private Button addButton;
+    @FXML private TextArea outputArea;
+    @FXML private Button settingsButton;
 
     @FXML
     private void onSearch() {
@@ -77,36 +74,60 @@ public class MainController {
     }
 
     @FXML
-        private void onAdd() {
-            if (!AnkiConnectService.isActive()) {
-                outputArea.setText("Could not connect to AnkiConnect.");
+    private void onAdd() {
+        if (!AnkiConnectService.isActive()) {
+            outputArea.setText("Could not connect to AnkiConnect.");
+        }
+
+        String readings = "";
+        String meanings = "";
+        String examples = "";
+
+        if (!kanji.isEmpty()) {
+            StringBuilder sb = new StringBuilder();
+            
+            readings = kanjiDef.getReadings().toString().replaceAll("(^\\[|\\]$)", "");
+            meanings = kanjiDef.getMeanings().toString().replaceAll("(^\\[|\\]$)", "");;
+            
+            if (sentences != null) {
+                for (Sentence sentence : sentences) {
+                    sb.append("EX: " + sentence.getTranscription() + "\n");
+                    sb.append("TL: " + sentence.getTranslation() + "\n");
+                }
+                
+                examples = sb.toString();
             }
 
-            String readings = "";
-            String meanings = "";
-            String examples = "";
-    
-            if (!kanji.isEmpty()) {
-                StringBuilder sb = new StringBuilder();
-                
-                readings = kanjiDef.getReadings().toString().replaceAll("(^\\[|\\]$)", "");
-                meanings = kanjiDef.getMeanings().toString().replaceAll("(^\\[|\\]$)", "");;
-                
-                if (sentences != null) {
-                    for (Sentence sentence : sentences) {
-                        sb.append("EX: " + sentence.getTranscription() + "\n");
-                        sb.append("TL: " + sentence.getTranslation() + "\n");
-                    }
-                    
-                    examples = sb.toString();
-                }
-    
-                openAnkiNoteWindow(kanji, readings, meanings, examples);
-            } else {
-                outputArea.setText("Search for a word to automatically fill the note fields!");
-                openAnkiNoteWindow(kanji, readings, meanings, examples);
-            }
+            openAnkiNoteWindow(kanji, readings, meanings, examples);
+        } else {
+            outputArea.setText("Search for a word to automatically fill the note fields!");
+            openAnkiNoteWindow(kanji, readings, meanings, examples);
         }
+    }
+
+    @FXML
+    private void openSettings() {
+        Stage ownerStage = (Stage) settingsButton.getScene().getWindow();
+        openSettings(ownerStage);
+    }
+
+    public void openSettings(Stage ownerStage) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/deck_select_window.fxml"));
+            Scene popupScene = new Scene(loader.load());
+
+            Stage popupStage = new Stage();
+            popupStage.initModality(Modality.APPLICATION_MODAL);
+            popupStage.initOwner(ownerStage);
+            popupStage.setTitle("Settings");
+
+            popupStage.setScene(popupScene);
+            popupStage.showAndWait();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public void updateTextArea(String update) {
         outputArea.setText(update);
@@ -120,13 +141,16 @@ public class MainController {
             if (ankiCardController != null) {
                 ankiCardController.setData(kanji, readings, meanings, examples, this);
             } else {
-                ankiCardController = loader.getController();
-                ankiCardController.setData(kanji, readings, meanings, examples, this);
-    
                 Stage stage = new Stage();
                 stage.setTitle("Add Card");
                 stage.setScene(new Scene(root, 500, 650));
                 stage.setX(1280);
+
+                ankiCardController = loader.getController();
+                ankiCardController.setData(kanji, readings, meanings, examples, this);
+                ankiCardController.setStage(stage);
+                ankiCardController.setOwner(this);
+
                 stage.show();
 
                 stage.setOnCloseRequest((event) -> {

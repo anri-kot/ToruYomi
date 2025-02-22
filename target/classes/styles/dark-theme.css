@@ -14,7 +14,32 @@
     -fx-text-fill: white;
 }
 
-.text-field, .text-area {
+.choice-box {
+    -fx-background-color: #2f2f2f;
+    -fx-border-color: white;
+    -fx-border-radius: 10px;
+}
+
+.choice-box .context-menu {
+    -fx-background-color: #373737;
+}
+
+.choice-box .menu-item:focused {
+    -fx-background-color: #49454a;
+    -fx-font-size: 10px;
+    -fx-font-weight: normal;
+}
+
+.choice-box .menu-item>.label {
+    -fx-text-fill: white;
+}
+
+.choice-box .menu-item:focused>.label {
+    -fx-text-fill: black;
+}
+
+.text-field,
+.text-area {
     -fx-font-family: "Noto Sans CJK JP", "Yu Gothic", "MS Gothic", "SimSun", "Arial Unicode MS";
     -fx-font-size: 16px;
 
