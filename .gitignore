@@ -24,7 +24,8 @@ target/
 # Package dir
 release/
 
-# Package Files #
+# Package Files
+releases/
 *.jar
 *.war
 *.nar

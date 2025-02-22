@@ -45,6 +45,7 @@
     </dependencies>
 
     <build>
+
         <plugins>
             <!-- Maven Compiler Plugin (Optional but recommended) -->
             <plugin>
@@ -59,13 +60,15 @@
 
             <!-- Maven plugin for running JavaFX application -->
             <plugin>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-maven-plugin</artifactId>
-            <version>0.0.8</version>
-            <configuration>
-                <mainClass>com.anrikot.app.Main</mainClass>
-            </configuration>
-        </plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>0.0.8</version>
+                <configuration>
+                    <mainClass>com.anrikot.app.App</mainClass>
+                </configuration>
+            </plugin>
+
+            <!-- Maven shade plugin for packaging jar -->
 
         </plugins>
 
