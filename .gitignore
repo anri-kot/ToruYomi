@@ -1,3 +1,5 @@
+dependency-reduced-pom.xml
+
 # Private
 notes.txt
 
@@ -15,6 +17,12 @@ notes.txt
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
+
+# Maven
+target/
+
+# Package dir
+release/
 
 # Package Files #
 *.jar
