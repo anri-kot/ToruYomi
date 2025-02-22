@@ -40,7 +40,7 @@ java -jar ToruYomi.jar
 - On **Linux**, run the following command from the terminal or create a `.sh` script:
 
 ```bash
-java -jar ToruYomi.jar &
+java -jar ToruYomi.jar 
 ```
 
 ## Deck and Model Setup
