@@ -29,6 +29,8 @@ ToruYomi is a Java-based desktop application designed to help Japanese learners 
 ### Using the JAR File
 - Ensure Java 23 or later is installed.
 - Download the `.jar` release.
+- Remember to run with Java Runtime 23.
+#### Running through command line/script
 - On **Windows**, run the following command from the terminal or create a `.bat` script:
 
 ```cmd
@@ -39,7 +41,6 @@ java -jar ToruYomi.jar
 
 ```bash
 java -jar ToruYomi.jar &
-disown
 ```
 
 ## Deck and Model Setup
